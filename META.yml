@@ -1,0 +1,34 @@
+---
+abstract: 'OAuth 2.0 for Perl'
+author:
+  - 'Keith Grennan <keith@nearlyfree.org>'
+build_requires:
+  Test::More: 0
+configure_requires:
+  Module::Build: 0.36
+generated_by: 'Module::Build version 0.3607'
+license: perl
+meta-spec:
+  url: http://module-build.sourceforge.net/META-spec-v1.4.html
+  version: 1.4
+name: Net-OAuth2
+provides:
+  Net::OAuth2:
+    file: lib/Net/OAuth2.pm
+    version: 0.01
+  Net::OAuth2::AccessToken:
+    file: lib/Net/OAuth2/AccessToken.pm
+  Net::OAuth2::Client:
+    file: lib/Net/OAuth2/Client.pm
+  Net::OAuth2::Profile::Base:
+    file: lib/Net/OAuth2/Profile/Base.pm
+  Net::OAuth2::Profile::WebServer:
+    file: lib/Net/OAuth2/Profile/WebServer.pm
+requires:
+  Class::Accessor: 0.31
+  JSON: 0
+  LWP::UserAgent: 0
+  URI: 0
+resources:
+  license: http://dev.perl.org/licenses/
+version: 0.01
