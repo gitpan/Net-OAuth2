@@ -9,11 +9,11 @@ Net::OAuth2 - OAuth 2.0 for Perl
 
 =cut
 
-our $VERSION = '0.01';
+our $VERSION = '0.02';
 
 =head1 SYNOPSIS
 
-  # This example is simplified for illustrative purposes, see the complete code in demo/37signals
+  # This example is simplified for illustrative purposes, see the complete code in /demo
 
   use Dancer;
   use Net::OAuth2::Client;
@@ -22,29 +22,29 @@ our $VERSION = '0.01';
   	Net::OAuth2::Client->new(
   		config->{client_id},
   		config->{client_secret},
-  		site => 'https://launchpad.37signals.com/',
-  		authorize_path => '/authorization/new',
-  		access_token_path => '/authorization/token',
-  	)->web_server(redirect_uri => uri_for('/got/auth'));
+  		site => 'https://graph.facebook.com',
+  	)->web_server(
+  	  redirect_uri => uri_for('/auth/facebook/callback')
+  	);
   }
 
   # Send user to authorize with service provider
-  get '/get/auth' => sub {
+  get '/auth/facebook' => sub {
   	redirect client->authorize_url;
   };
 
-  # User has returned with '?code=SOMETHING' appended to the URL.
-  get '/got/auth' => sub {
+  # User has returned with '?code=foo' appended to the URL.
+  get '/auth/facebook/callback' => sub {
   	# Use the auth code to fetch the access token
   	my $access_token =  client->get_access_token(params->{code});
 	
   	# Use the access token to fetch a protected resource
-  	my $response = $access_token->get('/authorization.xml');
+  	my $response = $access_token->get('/me');
 	
   	# Do something with said resource...
 	
   	if ($response->is_success) {
-  	  return "Yay, it worked!!";
+  	  return "Yay, it worked: " . $response->decoded_content;
   	}
   	else {
   	  return "Error: " . $response->status_line;
