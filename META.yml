@@ -3,6 +3,7 @@ abstract: 'OAuth 2.0 for Perl'
 author:
   - 'Keith Grennan <kgrennan@cpan.org>'
 build_requires:
+  Test::Mock::LWP::Dispatch: 0
   Test::More: 0
 configure_requires:
   Module::Build: 0.36
@@ -15,7 +16,7 @@ name: Net-OAuth2
 provides:
   Net::OAuth2:
     file: lib/Net/OAuth2.pm
-    version: 0.02
+    version: 0.03
   Net::OAuth2::AccessToken:
     file: lib/Net/OAuth2/AccessToken.pm
   Net::OAuth2::Client:
@@ -31,4 +32,4 @@ requires:
   URI: 0
 resources:
   license: http://dev.perl.org/licenses/
-version: 0.02
+version: 0.03

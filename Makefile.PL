@@ -12,7 +12,8 @@ WriteMakefile
                    'URI' => '0',
                    'LWP::UserAgent' => '0',
                    'Class::Accessor' => '0.31',
-                   'JSON' => '0'
+                   'JSON' => '0',
+                   'Test::Mock::LWP::Dispatch' => 0
                  }
 )
 ;
