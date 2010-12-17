@@ -5,6 +5,7 @@ author:
 build_requires:
   Test::Mock::LWP::Dispatch: 0
   Test::More: 0
+  YAML: 0
 configure_requires:
   Module::Build: 0.36
 generated_by: 'Module::Build version 0.3607'
@@ -16,7 +17,7 @@ name: Net-OAuth2
 provides:
   Net::OAuth2:
     file: lib/Net/OAuth2.pm
-    version: 0.03
+    version: 0.04
   Net::OAuth2::AccessToken:
     file: lib/Net/OAuth2/AccessToken.pm
   Net::OAuth2::Client:
@@ -32,4 +33,4 @@ requires:
   URI: 0
 resources:
   license: http://dev.perl.org/licenses/
-version: 0.03
+version: 0.04
