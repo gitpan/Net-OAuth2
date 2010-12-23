@@ -8,11 +8,12 @@ WriteMakefile
   'EXE_FILES' => [],
   'VERSION_FROM' => 'lib/Net/OAuth2.pm',
   'PREREQ_PM' => {
-                   'Test::More' => 0,
                    'YAML' => 0,
                    'URI' => '0',
-                   'LWP::UserAgent' => '0',
                    'Class::Accessor' => '0.31',
+                   'Test::NoWarnings' => 0,
+                   'Test::More' => 0,
+                   'LWP::UserAgent' => '0',
                    'JSON' => '0',
                    'Test::Mock::LWP::Dispatch' => 0
                  }
