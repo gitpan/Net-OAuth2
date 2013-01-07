@@ -1,37 +1,28 @@
 ---
-abstract: 'OAuth 2.0 for Perl'
+abstract: 'OAuth version 2 client'
 author:
-  - 'Keith Grennan <kgrennan@cpan.org>'
+  - 'Mark Overmeer'
 build_requires:
-  Test::Mock::LWP::Dispatch: 0
-  Test::More: 0
-  Test::NoWarnings: 0
-  YAML: 0
+  ExtUtils::MakeMaker: 0
 configure_requires:
-  Module::Build: 0.36
-generated_by: 'Module::Build version 0.3603'
+  ExtUtils::MakeMaker: 0
+dynamic_config: 1
+generated_by: 'ExtUtils::MakeMaker version 6.6302, CPAN::Meta::Converter version 2.120921'
 license: perl
 meta-spec:
   url: http://module-build.sourceforge.net/META-spec-v1.4.html
   version: 1.4
 name: Net-OAuth2
-provides:
-  Net::OAuth2:
-    file: lib/Net/OAuth2.pm
-    version: 0.07
-  Net::OAuth2::AccessToken:
-    file: lib/Net/OAuth2/AccessToken.pm
-  Net::OAuth2::Client:
-    file: lib/Net/OAuth2/Client.pm
-  Net::OAuth2::Profile::Base:
-    file: lib/Net/OAuth2/Profile/Base.pm
-  Net::OAuth2::Profile::WebServer:
-    file: lib/Net/OAuth2/Profile/WebServer.pm
+no_index:
+  directory:
+    - t
+    - inc
 requires:
-  Class::Accessor: 0.31
   JSON: 0
   LWP::UserAgent: 0
+  Scalar::Util: 0
+  Test::Mock::LWP::Dispatch: 0
+  Test::More: 0
   URI: 0
-resources:
-  license: http://dev.perl.org/licenses/
-version: 0.07
+  YAML: 0
+version: 0.50

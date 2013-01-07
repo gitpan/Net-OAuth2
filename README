@@ -1,62 +1,25 @@
-Net-OAuth2
+=== README for Net-OAuth2 version 0.50
+=   Generated on Mon Jan  7 12:39:23 2013 by OODoc 2.00
 
-A Perl wrapper for the OAuth 2.0 specification. This is a work in progress, being built first to work with existing OAuth 2.0 endpoints (37 Signals, Facebook, Google) with the goal of building it out to meet the entire specification over time.
+There are various ways to install this module:
 
-INSTALLATION
+ (1) if you have a command-line, you can do:
+       perl -MCPAN -e 'install <any package from this distribution>'
 
-$ cpan
-cpan> install Net::OAuth2
+ (2) if you use Windows, have a look at http://ppm.activestate.com/
 
-WEB SERVER EXAMPLE (Dancer)
+ (3) if you have downloaded this module manually (as root/administrator)
+       gzip -d Net-OAuth2-0.50.tar.gz
+       tar -xf Net-OAuth2-0.50.tar
+       cd Net-OAuth2-0.50
+       perl Makefile.PL
+       make          # optional
+       make test     # optional
+       make install
 
-  # This example is simplified for illustrative purposes, see the complete code in /demo
+For usage, see the included manual-pages or
+    http://search.cpan.org/dist/Net-OAuth2-0.50/
 
-  use Dancer;
-  use Net::OAuth2::Client;
-
-  sub client {
-  	Net::OAuth2::Client->new(
-  		config->{client_id},
-  		config->{client_secret},
-  		site => 'https://graph.facebook.com',
-  	)->web_server(
-  	  redirect_uri => uri_for('/auth/facebook/callback')
-  	);
-  }
-
-  # Send user to authorize with service provider
-  get '/auth/facebook' => sub {
-  	redirect client->authorize_url;
-  };
-
-  # User has returned with '?code=foo' appended to the URL.
-  get '/auth/facebook/callback' => sub {
-  
-  	# Use the auth code to fetch the access token
-  	my $access_token =  client->get_access_token(params->{code});
-
-  	# Use the access token to fetch a protected resource
-  	my $response = $access_token->get('/me');
-
-  	# Do something with said resource...
-
-  	if ($response->is_success) {
-  	  return "Yay, it worked: " . $response->decoded_content;
-  	}
-  	else {
-  	  return "Error: " . $response->status_line;
-  	}
-  };
-
-  dance;
-
-LICENSE AND COPYRIGHT
-
-Copyright (C) 2010 Keith Grennan
-
-This program is free software; you can redistribute it and/or modify it
-under the terms of either: the GNU General Public License as published
-by the Free Software Foundation; or the Artistic License.
-
-See http://dev.perl.org/licenses/ for more information.
+Please report problems to
+    http://rt.cpan.org/Dist/Display.html?Queue=Net-OAuth2
 
