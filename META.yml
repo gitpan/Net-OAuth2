@@ -18,11 +18,12 @@ no_index:
     - t
     - inc
 requires:
+  HTTP::Request: 0
+  HTTP::Status: 0
   JSON: 0
   LWP::UserAgent: 0
   Scalar::Util: 0
-  Test::Mock::LWP::Dispatch: 0
   Test::More: 0
   URI: 0
   YAML: 0
-version: 0.50
+version: 0.51
