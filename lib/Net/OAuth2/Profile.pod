@@ -64,7 +64,7 @@ Additional parameters for the command.
   grant_type     <required>
   scope          undef
   site           undef
-  token_scheme   'auth-header:OAuth'
+  token_scheme   'auth-header:Bearer'
   user_agent     <created internally>
 
 =over 2
@@ -85,6 +85,18 @@ See L<add_token()|Net::OAuth2::Profile/"Helpers"> for the supported SCHEMEs.  Sc
 probably the only sane default, because that works with any kind of http
 requests, where the other options have limited or possible disturbing
 application.
+
+Before [0.53], the default was 'auth-header:OAuth'.
+
+Specify the method to submit authenticated requests to the service. By
+default, add the access token as a header, such as: "Authorization:
+Bearer TOKEN".  Some services require that the header will be different,
+i.e. "Authorization: OAuth TOKEN", for which case specify token_scheme
+'auth-header:Oauth'.
+
+To add the access token as a uri-parameter: 'uri-query:oauth_token'
+(in this case, the parameter name will be oauth_token)
+Merge the access token inside a form body via 'form-body:oauth_token'
 
 =item user_agent => LWP::UserAgent object
 
@@ -192,8 +204,8 @@ to L<new(site)|Net::OAuth2::Profile/"Constructors">.
 
 =head1 SEE ALSO
 
-This module is part of Net-OAuth2 distribution version 0.52,
-built on January 15, 2013. Website: F<http://perl.overmeer.net>.
+This module is part of Net-OAuth2 distribution version 0.53,
+built on January 28, 2013. Website: F<http://perl.overmeer.net>.
 
 =head1 COPYRIGHTS
 
