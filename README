@@ -1,5 +1,5 @@
-=== README for Net-OAuth2 version 0.53
-=   Generated on Mon Jan 28 12:01:31 2013 by OODoc 2.01
+=== README for Net-OAuth2 version 0.54
+=   Generated on Thu Mar 28 10:58:17 2013 by OODoc 2.01
 
 There are various ways to install this module:
 
@@ -9,16 +9,16 @@ There are various ways to install this module:
  (2) if you use Windows, have a look at http://ppm.activestate.com/
 
  (3) if you have downloaded this module manually (as root/administrator)
-       gzip -d Net-OAuth2-0.53.tar.gz
-       tar -xf Net-OAuth2-0.53.tar
-       cd Net-OAuth2-0.53
+       gzip -d Net-OAuth2-0.54.tar.gz
+       tar -xf Net-OAuth2-0.54.tar
+       cd Net-OAuth2-0.54
        perl Makefile.PL
        make          # optional
        make test     # optional
        make install
 
 For usage, see the included manual-pages or
-    http://search.cpan.org/dist/Net-OAuth2-0.53/
+    http://search.cpan.org/dist/Net-OAuth2-0.54/
 
 Please report problems to
     http://rt.cpan.org/Dist/Display.html?Queue=Net-OAuth2

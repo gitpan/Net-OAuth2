@@ -31,8 +31,8 @@ Start with one these modules:
 
 =head1 SEE ALSO
 
-This module is part of Net-OAuth2 distribution version 0.53,
-built on January 28, 2013. Website: F<http://perl.overmeer.net>.
+This module is part of Net-OAuth2 distribution version 0.54,
+built on March 28, 2013. Website: F<http://perl.overmeer.net>.
 
 =head1 COPYRIGHTS
 

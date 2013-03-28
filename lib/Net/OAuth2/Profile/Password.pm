@@ -4,7 +4,7 @@
 # Pod stripped from pm file by OODoc 2.01.
 package Net::OAuth2::Profile::Password;
 use vars '$VERSION';
-$VERSION = '0.53';
+$VERSION = '0.54';
 
 use base 'Net::OAuth2::Profile';
 
