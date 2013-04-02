@@ -4,7 +4,7 @@
 # Pod stripped from pm file by OODoc 2.01.
 package Net::OAuth2::AccessToken;
 use vars '$VERSION';
-$VERSION = '0.54';
+$VERSION = '0.55';
 
 use warnings;
 use strict;
@@ -80,9 +80,8 @@ sub access_token()
         $self->{NOA_changed} = 1;
         $self->refresh if $self->auto_refresh;
     }
-    elsif($self->refresh_token)
-    {   # refresh token at each use
-        $self->refresh;
+    elsif($self->refresh_always)
+    {   $self->refresh;
     }
 
     $self->{NOA_access_token};

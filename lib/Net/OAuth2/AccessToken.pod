@@ -6,7 +6,7 @@
 
   my $auth    = Net::OAuth2::Profile::WebServer->new(...);
 
-  my $session = $auth->get_access_session($code, ...);
+  my $session = $auth->get_access_token($code, ...);
   # $session is a Net::OAuth2::AccessToken object
   if($session->error)
   {   print $session->error_description;
@@ -22,8 +22,8 @@
 =head1 DESCRIPTION
 
 This object represents a received (bearer) token, and offers ways to use it
-and maintain it.  A better name for this module would include <b>client
-or session</b>.
+and maintain it.  A better name for this module would include B<client
+or session>.
 
 A "bearer token" is an abstract proof of your existence: different
 services or potentially different physical servers are able to exchange
@@ -104,7 +104,7 @@ expired or earlier.
 
 =back
 
-=item $obj-E<gt>B<session_thaw>(SESSION, OPTIONS)
+=item Net::OAuth2::AccessToken-E<gt>B<session_thaw>(SESSION, OPTIONS)
 
 Pass in the output of a L<session_freeze()|Net::OAuth2::AccessToken/"Actions"> call in the past (maybe even
 for an older version of this module) and get the token object revived. This
@@ -260,8 +260,8 @@ these method will add the token to the HTTP messages sent.
 
 =head1 SEE ALSO
 
-This module is part of Net-OAuth2 distribution version 0.54,
-built on March 28, 2013. Website: F<http://perl.overmeer.net>.
+This module is part of Net-OAuth2 distribution version 0.55,
+built on April 02, 2013. Website: F<http://perl.overmeer.net>.
 
 =head1 COPYRIGHTS
 

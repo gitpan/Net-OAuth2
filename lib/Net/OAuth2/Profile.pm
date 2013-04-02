@@ -4,7 +4,7 @@
 # Pod stripped from pm file by OODoc 2.01.
 package Net::OAuth2::Profile;
 use vars '$VERSION';
-$VERSION = '0.54';
+$VERSION = '0.55';
 
 use warnings;
 use strict;
@@ -48,7 +48,7 @@ sub init($)
 
     $self->{NOP_agent}  = $args->{user_agent} || LWP::UserAgent->new;
     $self->{NOP_scheme} = $args->{token_scheme}
-        || $args->{bearer_token_scheme} || 'auth-header:OAuth';
+        || $args->{bearer_token_scheme} || 'auth-header:Bearer';
     $self->{NOP_scope}  = $args->{scope};
     $self->{NOP_method} = $args->{access_token_method} || 'POST';
     $self->{NOP_acc_param}   = $args->{access_token_param} || [];
@@ -111,9 +111,9 @@ sub site_url($@)
 {   my ($self, $path) = (shift, shift);
     my @params = @_==1 && ref $_[0] eq 'HASH' ? %{$_[0]} : @_;
     my $site = $self->site;
-    my $url  = $site ? URI->new_abs($path, $site) : URI->new($path);
-    $url->query_form($url->query_form, @params) if @params;
-    $url;
+    my $uri  = $site ? URI->new_abs($path, $site) : URI->new($path);
+    $uri->query_form($uri->query_form, @params) if @params;
+    $uri;
 }
 
 
