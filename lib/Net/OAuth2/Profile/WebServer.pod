@@ -1,3 +1,5 @@
+=encoding utf8
+
 =head1 NAME
 
 Net::OAuth2::Profile::WebServer - OAuth2 for web-server use
@@ -9,6 +11,7 @@ Net::OAuth2::Profile::WebServer - OAuth2 for web-server use
 
 =head1 SYNOPSIS
 
+  # See examples/psgi/
   my $auth = Net::OAuth2::Profile::WebServer->new
     ( name           => 'Google Contacts'
     , client_id      => $id
@@ -26,6 +29,8 @@ Net::OAuth2::Profile::WebServer - OAuth2 for web-server use
   # or, in Plack:   redirect $auth->authorize;
 
   # Prove your identity at the authorization server
+  # The $info are the parameters from the callback to your service, it
+  # will contain a 'code' value.
   my $access_token  = $auth->get_access_token($info->{code});
 
   # communicate with the resource serve
@@ -40,13 +45,19 @@ Net::OAuth2::Profile::WebServer - OAuth2 for web-server use
 Use OAuth2 in a WebServer context.  Read the DETAILS section, far below
 this man-page before you start implementing this interface.
 
+Extends L<"DESCRIPTION" in Net::OAuth2::Profile|Net::OAuth2::Profile/"DESCRIPTION">.
+ 
 =head1 METHODS
 
+Extends L<"METHODS" in Net::OAuth2::Profile|Net::OAuth2::Profile/"METHODS">.
+ 
 =head2 Constructors
 
+Extends L<"Constructors" in Net::OAuth2::Profile|Net::OAuth2::Profile/"Constructors">.
+ 
 =over 4
 
-=item Net::OAuth2::Profile::WebServer-E<gt>B<new>(OPTIONS)
+=item Net::OAuth2::Profile::WebServer-E<gt>B<new>(%options)
 
  -Option       --Defined in          --Default
   auto_save                            <set token's changed flag>
@@ -97,55 +108,59 @@ link was found.
 
 =head2 Accessors
 
+Extends L<"Accessors" in Net::OAuth2::Profile|Net::OAuth2::Profile/"Accessors">.
+ 
 =over 4
 
 =item $obj-E<gt>B<auto_save>()
 
 =item $obj-E<gt>B<bearer_token_scheme>()
 
-See L<Net::OAuth2::Profile/"Accessors">
+Inherited, see L<Net::OAuth2::Profile/"Accessors">
 
 =item $obj-E<gt>B<grant_type>()
 
-See L<Net::OAuth2::Profile/"Accessors">
+Inherited, see L<Net::OAuth2::Profile/"Accessors">
 
 =item $obj-E<gt>B<id>()
 
-See L<Net::OAuth2::Profile/"Accessors">
+Inherited, see L<Net::OAuth2::Profile/"Accessors">
 
 =item $obj-E<gt>B<redirect_uri>()
 
-=item $obj-E<gt>B<referer>([URI])
+=item $obj-E<gt>B<referer>( [$uri] )
 
 =item $obj-E<gt>B<scope>()
 
-See L<Net::OAuth2::Profile/"Accessors">
+Inherited, see L<Net::OAuth2::Profile/"Accessors">
 
 =item $obj-E<gt>B<secret>()
 
-See L<Net::OAuth2::Profile/"Accessors">
+Inherited, see L<Net::OAuth2::Profile/"Accessors">
 
 =item $obj-E<gt>B<site>()
 
-See L<Net::OAuth2::Profile/"Accessors">
+Inherited, see L<Net::OAuth2::Profile/"Accessors">
 
 =item $obj-E<gt>B<user_agent>()
 
-See L<Net::OAuth2::Profile/"Accessors">
+Inherited, see L<Net::OAuth2::Profile/"Accessors">
 
 =back
 
 =head2 Actions
 
+Extends L<"Actions" in Net::OAuth2::Profile|Net::OAuth2::Profile/"Actions">.
+ 
 =over 4
 
-=item $obj-E<gt>B<authorize>(OPTIONS)
+=item $obj-E<gt>B<authorize>(%options)
 
 On initial contact of a new user, you have to redirect to the resource
 owner.  Somewhere in the near future, your application will be contacted
 again by the same user but then with an authorization grant code.
 
-Only the most common OPTIONS are listed... there may be more: read the
+Only the most common %options are listed... there may be more: read the
 docs on what your server expects.
 
  -Option       --Default
@@ -180,12 +195,12 @@ example:
     , [ Location => $auth->authorize ]
     )->as_string;
 
-=item $obj-E<gt>B<authorize_response>([REQUEST])
+=item $obj-E<gt>B<authorize_response>( [$request] )
 
 Convenience wrapper around L<authorize()|Net::OAuth2::Profile::WebServer/"Actions">, to produce a complete
 HTTP::Response object to be sent back.
 
-=item $obj-E<gt>B<get_access_token>(CODE, OPTIONS)
+=item $obj-E<gt>B<get_access_token>(CODE, %options)
 
  -Option       --Default
   client_id      new(client_id)
@@ -199,9 +214,9 @@ HTTP::Response object to be sent back.
 
 =back
 
-=item $obj-E<gt>B<update_access_token>(TOKEN, OPTIONS)
+=item $obj-E<gt>B<update_access_token>($token, %options)
 
-Ask the server for a new token.  You may pass additional OPTIONS as
+Ask the server for a new token.  You may pass additional %options as
 pairs.  However, this method is often triggered automatically, in which
 case you can to use the C<refresh_token_params> option of L<new()|Net::OAuth2::Profile::WebServer/"Constructors">.
 
@@ -212,39 +227,27 @@ example:
 
 =back
 
-=head3 HTTP
-
-=over 4
-
-=item $obj-E<gt>B<request>(REQUEST, [MORE])
-
-See L<Net::OAuth2::Profile/"HTTP">
-
-=item $obj-E<gt>B<request_auth>(TOKEN, (REQUEST | (METHOD, URI, [HEADER, CONTENT])))
-
-See L<Net::OAuth2::Profile/"HTTP">
-
-=back
-
 =head2 Helpers
 
+Extends L<"Helpers" in Net::OAuth2::Profile|Net::OAuth2::Profile/"Helpers">.
+ 
 =over 4
 
-=item $obj-E<gt>B<add_token>(REQUEST, TOKEN, SCHEME)
+=item $obj-E<gt>B<add_token>($request, $token, $scheme)
 
-See L<Net::OAuth2::Profile/"Helpers">
+Inherited, see L<Net::OAuth2::Profile/"Helpers">
 
-=item $obj-E<gt>B<build_request>(METHOD, URI, PARAMS)
+=item $obj-E<gt>B<build_request>($method, $uri, $params)
 
-See L<Net::OAuth2::Profile/"Helpers">
+Inherited, see L<Net::OAuth2::Profile/"Helpers">
 
-=item $obj-E<gt>B<params_from_response>(RESPONSE, REASON)
+=item $obj-E<gt>B<params_from_response>($response, $reason)
 
-See L<Net::OAuth2::Profile/"Helpers">
+Inherited, see L<Net::OAuth2::Profile/"Helpers">
 
-=item $obj-E<gt>B<site_url>((URI|PATH), PARAMS)
+=item $obj-E<gt>B<site_url>( <$uri|$path>, $params )
 
-See L<Net::OAuth2::Profile/"Helpers">
+Inherited, see L<Net::OAuth2::Profile/"Helpers">
 
 =back
 
@@ -338,12 +341,12 @@ In this case, do not use L<new(auto_save)|Net::OAuth2::Profile::WebServer/"Const
 
 =head1 SEE ALSO
 
-This module is part of Net-OAuth2 distribution version 0.55,
-built on April 02, 2013. Website: F<http://perl.overmeer.net>.
+This module is part of Net-OAuth2 distribution version 0.57,
+built on March 24, 2014. Website: F<http://perl.overmeer.net>.
 
 =head1 COPYRIGHTS
 
-Copyrights 2013 on the perl code and the related documentation
+Copyrights 2013-2014 on the perl code and the related documentation
  by [Mark Overmeer] for SURFnet bv, The Netherlands.  For other contributors see Changes.
 
 Copyrights 2011-12 by Keith Grennan.

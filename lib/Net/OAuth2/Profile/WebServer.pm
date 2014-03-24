@@ -1,10 +1,10 @@
-# Copyrights 2013 by [Mark Overmeer].
+# Copyrights 2013-2014 by [Mark Overmeer].
 #  For other contributors see Changes.
 # See the manual pages for details on the licensing terms.
 # Pod stripped from pm file by OODoc 2.01.
 package Net::OAuth2::Profile::WebServer;
 use vars '$VERSION';
-$VERSION = '0.55';
+$VERSION = '0.57';
 
 use base 'Net::OAuth2::Profile';
 
@@ -22,11 +22,11 @@ use HTTP::Status      qw(HTTP_TEMPORARY_REDIRECT);
 
 sub init($)
 {   my ($self, $args) = @_;
-    $args->{grant_type}  ||= 'authorization_code';
+    $args->{grant_type}   ||= 'authorization_code';
     $self->SUPER::init($args);
-    $self->{NOPW_redirect} = $args->{redirect_uri};
-    $self->{NOPW_referer}  = $args->{referer};
-    $self->{NOPW_save}     = $args->{auto_save}
+    $self->{NOPW_redirect}  = $args->{redirect_uri};
+    $self->{NOPW_referer}   = $args->{referer};
+    $self->{NOPW_auto_save} = $args->{auto_save}
       || sub { my $token = shift; $token->changed(1) };
     $self;
 }
@@ -80,14 +80,16 @@ sub get_access_token($@)
 
     # rfc6749 section "2.3.1. Client Password"
     # header is always supported, client_id/client_secret may be.  We do both.
-    my $params  = $self->access_token_params(code => $code, @req_params);
-    my $request = $self->build_request
+    my $params   = $self->access_token_params(code => $code, @req_params);
+    my $request  = $self->build_request
       ( $self->access_token_method
       , $self->access_token_url
       , $params
       );
 
-    my $basic = encode_base64 "$params->{client_id}:$params->{client_secret}";
+    my $basic    = encode_base64 "$params->{client_id}:$params->{client_secret}"
+      , '';   # no new-lines!
+
     $request->headers->header(Authorization => "Basic $basic");
     my $response = $self->request($request);
 
@@ -121,7 +123,7 @@ sub update_access_token($@)
     my $exp   = $data{expires_in}
         or die  "no expires_in found in refresh data";
 
-    $access->update_token($token, $type, $exp+time());
+    $access->update_token($token, $type, $exp+time(), $data{refresh_token});
 }
 
 sub authorize_params(%)

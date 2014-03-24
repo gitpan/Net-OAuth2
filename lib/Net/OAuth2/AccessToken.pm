@@ -1,10 +1,10 @@
-# Copyrights 2013 by [Mark Overmeer].
+# Copyrights 2013-2014 by [Mark Overmeer].
 #  For other contributors see Changes.
 # See the manual pages for details on the licensing terms.
 # Pod stripped from pm file by OODoc 2.01.
 package Net::OAuth2::AccessToken;
 use vars '$VERSION';
-$VERSION = '0.55';
+$VERSION = '0.57';
 
 use warnings;
 use strict;
@@ -114,11 +114,15 @@ sub expired(;$)
 }
 
 
-sub update_token($$$)
-{   my ($self, $token, $type, $exp) = @_;
-    $self->{NOA_access_token} = $token;
-    $self->{NOA_token_type}   = $type if $type;
-    $self->{NOA_expires_at}   = $exp;
+sub update_token($$$;$)
+{   my ($self, $token, $type, $exp, $refresh) = @_;
+    $self->{NOA_access_token}  = $token;
+    $self->{NOA_token_type}    = $type if $type;
+    $self->{NOA_expires_at}    = $exp;
+
+    $self->{NOA_refresh_token} = $refresh
+        if defined $refresh;
+
     $token;
 }
 

@@ -1,3 +1,5 @@
+=encoding utf8
+
 =head1 NAME
 
 Net::OAuth2::Profile - OAuth2 access profiles
@@ -31,9 +33,9 @@ Base class for OAuth `profiles'.  Currently implemented:
 
 =over 4
 
-=item Net::OAuth2::Profile-E<gt>B<new>(OPTIONS)
+=item Net::OAuth2::Profile-E<gt>B<new>(%options)
 
-Next to the OPTIONS listed below, it is possible to provide settings
+Next to the %options listed below, it is possible to provide settings
 for each of the <${commands}> C<access_token>, C<protected_resource>,
 C<authorize>, and C<refresh_token>.  For each command, you can set
 
@@ -130,15 +132,15 @@ Merge the access token inside a form body via 'form-body:oauth_token'
 
 =over 4
 
-=item $obj-E<gt>B<request>(REQUEST, [MORE])
+=item $obj-E<gt>B<request>( $request, [$more] )
 
-Send the REQUEST (a HTTP::Request object) to the server, calling
+Send the $request (a HTTP::Request object) to the server, calling
 LWP::UserAgent method C<request()>.  This method will NOT add
 security token information to the message.
 
-=item $obj-E<gt>B<request_auth>(TOKEN, (REQUEST | (METHOD, URI, [HEADER, CONTENT])))
+=item $obj-E<gt>B<request_auth>( $token, <$request | <$method, $uri, [$header, $content]>> )
 
-Send an authorized request: the TOKEN information gets included in the
+Send an authorized request: the $token information gets included in the
 request object.  Returns the answer (HTTP::Response).
 
 example: 
@@ -160,10 +162,10 @@ example:
 
 =over 4
 
-=item $obj-E<gt>B<add_token>(REQUEST, TOKEN, SCHEME)
+=item $obj-E<gt>B<add_token>($request, $token, $scheme)
 
-Merge information from the TOKEN into the REQUEST following the the
-bearer token SCHEME.  Supported schemes:
+Merge information from the $token into the $request following the the
+bearer token $scheme.  Supported schemes:
 
 =over 4
 
@@ -184,32 +186,32 @@ The default FIELD name used is C<oauth_token>.
 
 =back
 
-=item $obj-E<gt>B<build_request>(METHOD, URI, PARAMS)
+=item $obj-E<gt>B<build_request>($method, $uri, $params)
 
-Returns a HTTP::Request object.  PARAMS is an HASH or an ARRAY-of-PAIRS
+Returns a HTTP::Request object.  $params is an HASH or an ARRAY-of-PAIRS
 of query parameters.
 
-=item $obj-E<gt>B<params_from_response>(RESPONSE, REASON)
+=item $obj-E<gt>B<params_from_response>($response, $reason)
 
-Decode information from the RESPONSE by the server (an HTTP::Response
-object). The REASON for this answer is used in error messages.
+Decode information from the $response by the server (an HTTP::Response
+object). The $reason for this answer is used in error messages.
 
-=item $obj-E<gt>B<site_url>((URI|PATH), PARAMS)
+=item $obj-E<gt>B<site_url>( <$uri|$path>, $params )
 
-Construct a URL to address the site.  When a full URI is passed, it appends
-the PARAMS as query parameters.  When a PATH is provided, it is relative
+Construct a URL to address the site.  When a full $uri is passed, it appends
+the $params as query parameters.  When a $path is provided, it is relative
 to L<new(site)|Net::OAuth2::Profile/"Constructors">.
 
 =back
 
 =head1 SEE ALSO
 
-This module is part of Net-OAuth2 distribution version 0.55,
-built on April 02, 2013. Website: F<http://perl.overmeer.net>.
+This module is part of Net-OAuth2 distribution version 0.57,
+built on March 24, 2014. Website: F<http://perl.overmeer.net>.
 
 =head1 COPYRIGHTS
 
-Copyrights 2013 on the perl code and the related documentation
+Copyrights 2013-2014 on the perl code and the related documentation
  by [Mark Overmeer] for SURFnet bv, The Netherlands.  For other contributors see Changes.
 
 Copyrights 2011-12 by Keith Grennan.

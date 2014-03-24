@@ -1,6 +1,8 @@
+=encoding utf8
+
 =head1 NAME
 
- Net::OAuth2::AccessToken - OAuth2 bearer token
+  Net::OAuth2::AccessToken - OAuth2 bearer token
 
 =head1 SYNOPSIS
 
@@ -36,7 +38,7 @@ someone logged-in while showing the token.
 
 =over 4
 
-=item Net::OAuth2::AccessToken-E<gt>B<new>(OPTIONS)
+=item Net::OAuth2::AccessToken-E<gt>B<new>(%options)
 
  -Option           --Default
   access_token       undef
@@ -104,14 +106,14 @@ expired or earlier.
 
 =back
 
-=item Net::OAuth2::AccessToken-E<gt>B<session_thaw>(SESSION, OPTIONS)
+=item Net::OAuth2::AccessToken-E<gt>B<session_thaw>($session, %options)
 
 Pass in the output of a L<session_freeze()|Net::OAuth2::AccessToken/"Actions"> call in the past (maybe even
 for an older version of this module) and get the token object revived. This
-SESSION is a HASH.
+$session is a HASH.
 
-You may pass any of the parameters for L<new()|Net::OAuth2::AccessToken/"Constructors"> as OPTIONS, to overrule
-the values inside the SESSION.
+You may pass any of the parameters for L<new()|Net::OAuth2::AccessToken/"Constructors"> as %options, to overrule
+the values inside the $session.
 
  -Option --Default
   profile  <required>
@@ -149,7 +151,7 @@ or when L<new(auto_refresh)|Net::OAuth2::AccessToken/"Constructors"> is set.
 It does not matter that the token is base64 encoded or not: it will
 always need to be base64 encoded during transport.
 
-=item $obj-E<gt>B<changed>([BOOLEAN])
+=item $obj-E<gt>B<changed>( [BOOLEAN] )
 
 [0.52] The session (token) needs to be saved, because any of the crucial
 parameters have been modified and C<auto_save> is not defined by
@@ -184,13 +186,13 @@ result of an error.  It is the way the original code was designed...
 
 =item $obj-E<gt>B<auto_refresh>()
 
-=item $obj-E<gt>B<expired>([AFTER])
+=item $obj-E<gt>B<expired>( [$after] )
 
 Returns true when the token has an expiration set and that time has
-passed.  We use this token AFTER this check: to avoid the token to
+passed.  We use this token $after this check: to avoid the token to
 timeout inbetween, we take (by default 15 seconds) margin.
 
-=item $obj-E<gt>B<expires_at>([TIMESTAMP])
+=item $obj-E<gt>B<expires_at>( [$timestamp] )
 
 Returns the expiration timestamp of this token (true) or C<undef> (false)
 when it is not set.
@@ -204,7 +206,7 @@ may be negative.
 
 =item $obj-E<gt>B<refresh_token>()
 
-=item $obj-E<gt>B<update_token>(TOKEN, TOKENTYPE, EXPIRES_AT)
+=item $obj-E<gt>B<update_token>( $token, $tokentype, $expires_at, [$refresh_token] )
 
 Change the token.
 
@@ -219,7 +221,7 @@ Change the token.
 Refresh the token, even if it has not expired yet.  Returned is the
 new access_token value, which may be undef on failure.
 
-=item $obj-E<gt>B<session_freeze>(OPTIONS)
+=item $obj-E<gt>B<session_freeze>(%options)
 
 This returns a SESSION (a flat HASH) containing all token parameters which
 needs to be saved to be able to restore this token later.  This SESSION
@@ -246,26 +248,26 @@ these method will add the token to the HTTP messages sent.
 
 =over 4
 
-=item $obj-E<gt>B<delete>(URI, [HEADER, [CONTENT]])
+=item $obj-E<gt>B<delete>( $uri, [$header, [$content]] )
 
-=item $obj-E<gt>B<get>(URI, [HEADER, [CONTENT]])
+=item $obj-E<gt>B<get>( $uri, [$header, [$content]] )
 
-=item $obj-E<gt>B<post>(URI, [HEADER, [CONTENT]])
+=item $obj-E<gt>B<post>( $uri, [$header, [$content]] )
 
-=item $obj-E<gt>B<put>(URI, [HEADER, [CONTENT]])
+=item $obj-E<gt>B<put>( $uri, [$header, [$content]] )
 
-=item $obj-E<gt>B<request>(REQUEST)
+=item $obj-E<gt>B<request>($request)
 
 =back
 
 =head1 SEE ALSO
 
-This module is part of Net-OAuth2 distribution version 0.55,
-built on April 02, 2013. Website: F<http://perl.overmeer.net>.
+This module is part of Net-OAuth2 distribution version 0.57,
+built on March 24, 2014. Website: F<http://perl.overmeer.net>.
 
 =head1 COPYRIGHTS
 
-Copyrights 2013 on the perl code and the related documentation
+Copyrights 2013-2014 on the perl code and the related documentation
  by [Mark Overmeer] for SURFnet bv, The Netherlands.  For other contributors see Changes.
 
 Copyrights 2011-12 by Keith Grennan.

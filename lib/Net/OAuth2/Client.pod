@@ -1,3 +1,5 @@
+=encoding utf8
+
 =head1 NAME
 
 Net::OAuth2::Client - client for OAuth2 access, deprecated interface
@@ -34,12 +36,12 @@ interface.
 
 =over 4
 
-=item Net::OAuth2::Client-E<gt>B<new>(ID, SECRET, OPTIONS)
+=item Net::OAuth2::Client-E<gt>B<new>($id, $secret, %options)
 
-This object collects all OPTIONS to be used when L<web_server()|Net::OAuth2::Client/"Actions"> creates
+This object collects all %options to be used when L<web_server()|Net::OAuth2::Client/"Actions"> creates
 a profile.
 
-The ID will be translated into OPTION C<client_id>, and SECRET to
+The $id will be translated into OPTION C<client_id>, and $secret to
 C<client_secret>.
 
 =back
@@ -60,26 +62,26 @@ C<client_secret>.
 
 =over 4
 
-=item $obj-E<gt>B<password>(OPTIONS)
+=item $obj-E<gt>B<password>(%options)
 
 Create a L<Net::OAuth2::Profile::Password|Net::OAuth2::Profile::Password> object, based on all options
-passed with L<new()|Net::OAuth2::Client/"Constructors">, overruled/extended by the OPTIONS passed here.
+passed with L<new()|Net::OAuth2::Client/"Constructors">, overruled/extended by the %options passed here.
 
-=item $obj-E<gt>B<web_server>(OPTIONS)
+=item $obj-E<gt>B<web_server>(%options)
 
 Create a L<Net::OAuth2::Profile::WebServer|Net::OAuth2::Profile::WebServer> object, based on all options
-passed with L<new()|Net::OAuth2::Client/"Constructors">, overruled/extended by the OPTIONS passed here.
+passed with L<new()|Net::OAuth2::Client/"Constructors">, overruled/extended by the %options passed here.
 
 =back
 
 =head1 SEE ALSO
 
-This module is part of Net-OAuth2 distribution version 0.55,
-built on April 02, 2013. Website: F<http://perl.overmeer.net>.
+This module is part of Net-OAuth2 distribution version 0.57,
+built on March 24, 2014. Website: F<http://perl.overmeer.net>.
 
 =head1 COPYRIGHTS
 
-Copyrights 2013 on the perl code and the related documentation
+Copyrights 2013-2014 on the perl code and the related documentation
  by [Mark Overmeer] for SURFnet bv, The Netherlands.  For other contributors see Changes.
 
 Copyrights 2011-12 by Keith Grennan.
