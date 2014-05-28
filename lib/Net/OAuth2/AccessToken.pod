@@ -151,6 +151,12 @@ or when L<new(auto_refresh)|Net::OAuth2::AccessToken/"Constructors"> is set.
 It does not matter that the token is base64 encoded or not: it will
 always need to be base64 encoded during transport.
 
+=item $obj-E<gt>B<attribute>(NAME)
+
+[0.58] Sometimes, the token gets attributes which are not standard; they
+have no official accessor (yet?).  You can get them with this generic
+accessor.
+
 =item $obj-E<gt>B<changed>( [BOOLEAN] )
 
 [0.52] The session (token) needs to be saved, because any of the crucial
@@ -262,8 +268,8 @@ these method will add the token to the HTTP messages sent.
 
 =head1 SEE ALSO
 
-This module is part of Net-OAuth2 distribution version 0.57,
-built on March 24, 2014. Website: F<http://perl.overmeer.net>.
+This module is part of Net-OAuth2 distribution version 0.58,
+built on May 28, 2014. Website: F<http://perl.overmeer.net>.
 
 =head1 COPYRIGHTS
 

@@ -4,7 +4,7 @@
 # Pod stripped from pm file by OODoc 2.01.
 package Net::OAuth2::Client;
 use vars '$VERSION';
-$VERSION = '0.57';
+$VERSION = '0.58';
 
 use warnings;
 use strict;
