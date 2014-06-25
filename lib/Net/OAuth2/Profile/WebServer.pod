@@ -59,17 +59,19 @@ Extends L<"Constructors" in Net::OAuth2::Profile|Net::OAuth2::Profile/"Construct
 
 =item Net::OAuth2::Profile::WebServer-E<gt>B<new>(%options)
 
- -Option       --Defined in          --Default
-  auto_save                            <set token's changed flag>
-  client_id      Net::OAuth2::Profile  <required>
-  client_secret  Net::OAuth2::Profile  <required>
-  grant_type     Net::OAuth2::Profile  'authorization_code'
-  redirect_uri                         undef
-  referer                              undef
-  scope          Net::OAuth2::Profile  undef
-  site           Net::OAuth2::Profile  undef
-  token_scheme   Net::OAuth2::Profile  'auth-header:Bearer'
-  user_agent     Net::OAuth2::Profile  <created internally>
+ -Option           --Defined in          --Default
+  auto_save                                <set token's changed flag>
+  client_id          Net::OAuth2::Profile  <required>
+  client_secret      Net::OAuth2::Profile  <required>
+  grant_type         Net::OAuth2::Profile  'authorization_code'
+  redirect_uri                             undef
+  referer                                  undef
+  scope              Net::OAuth2::Profile  undef
+  secrets_in_params  Net::OAuth2::Profile  <true>
+  site               Net::OAuth2::Profile  undef
+  state              Net::OAuth2::Profile  undef
+  token_scheme       Net::OAuth2::Profile  'auth-header:Bearer'
+  user_agent         Net::OAuth2::Profile  <created internally>
 
 =over 2
 
@@ -96,7 +98,11 @@ link was found.
 
 =item scope => STRING
 
+=item secrets_in_params => BOOLEAN
+
 =item site => URI
+
+=item state => STRING
 
 =item token_scheme => SCHEME
 
@@ -139,6 +145,10 @@ Inherited, see L<Net::OAuth2::Profile/"Accessors">
 Inherited, see L<Net::OAuth2::Profile/"Accessors">
 
 =item $obj-E<gt>B<site>()
+
+Inherited, see L<Net::OAuth2::Profile/"Accessors">
+
+=item $obj-E<gt>B<state>()
 
 Inherited, see L<Net::OAuth2::Profile/"Accessors">
 
@@ -341,8 +351,8 @@ In this case, do not use L<new(auto_save)|Net::OAuth2::Profile::WebServer/"Const
 
 =head1 SEE ALSO
 
-This module is part of Net-OAuth2 distribution version 0.58,
-built on May 28, 2014. Website: F<http://perl.overmeer.net>.
+This module is part of Net-OAuth2 distribution version 0.59,
+built on June 24, 2014. Website: F<http://perl.overmeer.net>.
 
 =head1 COPYRIGHTS
 

@@ -4,7 +4,7 @@
 # Pod stripped from pm file by OODoc 2.01.
 package Net::OAuth2::AccessToken;
 use vars '$VERSION';
-$VERSION = '0.58';
+$VERSION = '0.59';
 
 use warnings;
 use strict;
@@ -44,6 +44,7 @@ sub init($)
     $self->{NOA_refresh_token} = $args->{refresh_token};
     $self->{NOA_refresh_always}= $args->{refresh_always};
     $self->{NOA_scope}         = $args->{scope};
+    $self->{NOA_state}         = $args->{state};
     $self->{NOA_token_type}    = $args->{token_type};
     $self->{NOA_auto_refresh}  = $args->{auto_refresh};
     $self->{NOA_changed}       = $args->{changed};
@@ -67,6 +68,7 @@ sub session_thaw($%)
 
 sub token_type() {shift->{NOA_token_type}}
 sub scope()      {shift->{NOA_scope}}
+sub state()      {shift->{NOA_state}}
 sub profile()    {shift->{NOA_profile}}
 
 

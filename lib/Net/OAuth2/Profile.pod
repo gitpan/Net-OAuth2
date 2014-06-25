@@ -27,6 +27,10 @@ Base class for OAuth `profiles'.  Currently implemented:
 
 =back
 
+You may want to use the
+L<OAuth2 documentation at Google|https://developers.google.com/accounts/docs/OAuth2WebServer>
+to understand the process and the parameters.
+
 =head1 METHODS
 
 =head2 Constructors
@@ -60,14 +64,16 @@ Additional parameters for the command.
 
 =back
 
- -Option       --Default
-  client_id      <required>
-  client_secret  <required>
-  grant_type     <required>
-  scope          undef
-  site           undef
-  token_scheme   'auth-header:Bearer'
-  user_agent     <created internally>
+ -Option           --Default
+  client_id          <required>
+  client_secret      <required>
+  grant_type         <required>
+  scope              undef
+  secrets_in_params  <true>
+  site               undef
+  state              undef
+  token_scheme       'auth-header:Bearer'
+  user_agent         <created internally>
 
 =over 2
 
@@ -79,7 +85,20 @@ Additional parameters for the command.
 
 =item scope => STRING
 
+=item secrets_in_params => BOOLEAN
+
+The client secrets are passed both via an Authentication header, as via
+query parameters in the URI.  The former is required to be accepted by
+rfc6749, the latter is optional.  However: many servers use the query
+parameters only.
+
+QQ Catalyst, on the other hand, does refuse requests with these parameters
+in the query.  So, with this flag explictly set to false, only the
+Auth header gets included.
+
 =item site => URI
+
+=item state => STRING
 
 =item token_scheme => SCHEME
 
@@ -121,6 +140,8 @@ Merge the access token inside a form body via 'form-body:oauth_token'
 =item $obj-E<gt>B<secret>()
 
 =item $obj-E<gt>B<site>()
+
+=item $obj-E<gt>B<state>()
 
 =item $obj-E<gt>B<user_agent>()
 
@@ -206,8 +227,8 @@ to L<new(site)|Net::OAuth2::Profile/"Constructors">.
 
 =head1 SEE ALSO
 
-This module is part of Net-OAuth2 distribution version 0.58,
-built on May 28, 2014. Website: F<http://perl.overmeer.net>.
+This module is part of Net-OAuth2 distribution version 0.59,
+built on June 24, 2014. Website: F<http://perl.overmeer.net>.
 
 =head1 COPYRIGHTS
 

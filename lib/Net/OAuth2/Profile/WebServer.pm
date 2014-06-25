@@ -4,7 +4,7 @@
 # Pod stripped from pm file by OODoc 2.01.
 package Net::OAuth2::Profile::WebServer;
 use vars '$VERSION';
-$VERSION = '0.58';
+$VERSION = '0.59';
 
 use base 'Net::OAuth2::Profile';
 
@@ -78,9 +78,8 @@ sub authorize_response(;$)
 sub get_access_token($@)
 {   my ($self, $code, @req_params) = @_;
 
-    # rfc6749 section "2.3.1. Client Password"
-    # header is always supported, client_id/client_secret may be.  We do both.
     my $params   = $self->access_token_params(code => $code, @req_params);
+
     my $request  = $self->build_request
       ( $self->access_token_method
       , $self->access_token_url

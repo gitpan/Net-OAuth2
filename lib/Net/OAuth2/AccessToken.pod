@@ -167,6 +167,8 @@ the profile.
 
 =item $obj-E<gt>B<scope>()
 
+=item $obj-E<gt>B<state>()
+
 =item $obj-E<gt>B<token_type>()
 
 =back
@@ -268,8 +270,8 @@ these method will add the token to the HTTP messages sent.
 
 =head1 SEE ALSO
 
-This module is part of Net-OAuth2 distribution version 0.58,
-built on May 28, 2014. Website: F<http://perl.overmeer.net>.
+This module is part of Net-OAuth2 distribution version 0.59,
+built on June 24, 2014. Website: F<http://perl.overmeer.net>.
 
 =head1 COPYRIGHTS
 

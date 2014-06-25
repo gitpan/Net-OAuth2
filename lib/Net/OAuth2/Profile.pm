@@ -4,7 +4,7 @@
 # Pod stripped from pm file by OODoc 2.01.
 package Net::OAuth2::Profile;
 use vars '$VERSION';
-$VERSION = '0.58';
+$VERSION = '0.59';
 
 use warnings;
 use strict;
@@ -43,17 +43,20 @@ sub init($)
     my $secret = $self->{NOP_secret} = $args->{client_secret}
         or carp "profile needs secret";
 
-    $self->{NOP_id_enc}     = _url_enc $id;
-    $self->{NOP_secret_enc} = _url_enc $secret;
+    $self->{NOP_id_enc}      = _url_enc $id;
+    $self->{NOP_secret_enc}  = _url_enc $secret;
 
-    $self->{NOP_agent}  = $args->{user_agent} || LWP::UserAgent->new;
-    $self->{NOP_scheme} = $args->{token_scheme}
+    $self->{NOP_agent}       = $args->{user_agent} || LWP::UserAgent->new;
+    $self->{NOP_scheme}      = $args->{token_scheme}
         || $args->{bearer_token_scheme} || 'auth-header:Bearer';
-    $self->{NOP_scope}  = $args->{scope};
-    $self->{NOP_method} = $args->{access_token_method} || 'POST';
+    $self->{NOP_scope}       = $args->{scope};
+    $self->{NOP_state}       = $args->{state};
+    $self->{NOP_method}      = $args->{access_token_method} || 'POST';
     $self->{NOP_acc_param}   = $args->{access_token_param} || [];
     $self->{NOP_init_params} = $args->{init_params};
     $self->{NOP_grant_type}  = $args->{grant_type};
+    $self->{NOP_show_secret} = exists $args->{secrets_in_params}
+      ? $args->{secrets_in_params} : 1;
 
     my $site = $self->{NOP_site}  = $args->{site};
     foreach my $c (qw/access_token protected_resource authorize refresh_token/)
@@ -75,6 +78,7 @@ sub secret_enc() {shift->{NOP_secret_enc}}
 sub user_agent() {shift->{NOP_agent}}
 sub site()       {shift->{NOP_site}}
 sub scope()      {shift->{NOP_scope}}
+sub state()      {shift->{NOP_state}}
 sub grant_type() {shift->{NOP_grant_type}}
 
 sub bearer_token_scheme() {shift->{NOP_scheme}}
@@ -155,13 +159,20 @@ sub add_token($$$)
 
 sub build_request($$$)
 {   my ($self, $method, $uri_base, $params) = @_;
-    $params = [ %$params ] if ref $params eq 'HASH';
+    my %params = ref $params eq 'HASH' ? %$params : @$params;
+
+    # rfc6749 section "2.3.1. Client Password"
+    # The Auth Header is always supported, but client_id/client_secret as
+    # parameters may be as well.  We do both when ->new(secrets_in_params)
+    # to support old servers.
+    delete @params{qw/client_id client_secret/}
+        unless $self->{NOP_show_secret};
 
     my $request;
 
     if($method eq 'POST')
     {   my $p = URI->new('http:');   # taken from HTTP::Request::Common
-        $p->query_form(@$params);
+        $p->query_form(%params);
 
         $request = HTTP::Request->new
           ( $method => $uri_base
@@ -173,7 +184,7 @@ sub build_request($$$)
     {   my $uri = blessed $uri_base && $uri_base->isa('URI')
           ? $uri_base->clone : URI->new($uri_base);
 
-        $uri->query_form($uri->query_form, @$params);
+        $uri->query_form($uri->query_form, %params);
         $request = HTTP::Request->new($method, $uri);
     }
     else
@@ -235,6 +246,7 @@ sub authorize_params(%)
 {   my $self   = shift;
     my %params = (@{$self->{NOP_authorize_param}}, @_);
     $params{scope}         ||= $self->scope;
+    $params{state}         ||= $self->state;
     $params{client_id}     ||= $self->id;
     \%params;
 }
